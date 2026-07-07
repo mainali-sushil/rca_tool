@@ -1,4 +1,3 @@
-import asyncio
 import json
 from typing import Any, Dict
 
@@ -36,7 +35,7 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> list[TextContent]:
     return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
-async def main() -> None:
+async def _run() -> None:
     async with stdio_server() as (read_stream, write_stream):
         await server.run(
             read_stream,
@@ -45,5 +44,11 @@ async def main() -> None:
         )
 
 
+def main() -> None:
+    import asyncio
+
+    asyncio.run(_run())
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

@@ -56,9 +56,8 @@ def stage_and_install_plugin() -> None:
         server_yaml.read_text().replace("{{env:HOME}}", str(Path.home()))
     )
 
-    # Remove any previous version before installing (makes re-runs idempotent)
-    subprocess.run(["mallard", "plugin", "remove", PLUGIN_NAME], capture_output=True)
-    # call mallard plugin install
+    # Install the staged bundle without deleting the existing plugin first.
+    # That keeps a failed upgrade from leaving the user with no working copy.
     subprocess.check_call(["mallard", "plugin", "install", str(staged)])
     print(f"\n✅ {PLUGIN_NAME} plugin installed. Restart Claude Code to pick it up.")
 

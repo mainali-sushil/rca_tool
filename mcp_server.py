@@ -1,8 +1,7 @@
 from typing import Any, Dict
 
-from tools_schema import ALL_TOOLS
 from handlers import call_build_incident_timeline, call_generate_5_whys_questions
-from llm_interface import LLMClient
+from tools_schema import ALL_TOOLS
 
 
 class RcaMcpServer:
@@ -12,7 +11,7 @@ class RcaMcpServer:
     Python MCP SDK or your own implementation.
     """
 
-    def __init__(self, llm: LLMClient):
+    def __init__(self, llm: object | None = None):
         self.llm = llm
 
     def list_tools(self) -> Dict[str, Any]:
@@ -22,7 +21,7 @@ class RcaMcpServer:
     def call_tool(self, name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """Dispatch a tool call (for tools/call)."""
         if name == "build_incident_timeline":
-            data = call_build_incident_timeline(arguments, self.llm)
+            data = call_build_incident_timeline(arguments)
             return {
                 "content": [
                     {
@@ -33,7 +32,7 @@ class RcaMcpServer:
             }
 
         if name == "generate_5_whys_questions":
-            data = call_generate_5_whys_questions(arguments, self.llm)
+            data = call_generate_5_whys_questions(arguments)
             return {
                 "content": [
                     {
