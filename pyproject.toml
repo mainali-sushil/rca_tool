@@ -1,0 +1,11 @@
+[project]
+name = "rca-mcp-tools"
+version = "0.1.0"
+description = "MCP-compatible RCA tools for incident timelines and 5 Whys generation"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+rca-mcp = "server:main"
