@@ -8,7 +8,10 @@ This package defines two MCP-style tools for streamlining incident RCAs:
   incident problem statement and timeline.
 
 The code is LLM-agnostic. Implement `LLMClient` for your provider (Anthropic, OpenAI,
-local models, etc.), then wire `RcaMcpServer` into your MCP transport.
+local models, etc.), then wire `server.py` into your MCP transport.
+
+The MCP server returns structured tool output, so clients can read `structuredContent`
+directly instead of parsing JSON from a text block.
 
 ## Files
 
@@ -16,6 +19,7 @@ local models, etc.), then wire `RcaMcpServer` into your MCP transport.
 - `prompts.py`: System prompts used for the two tools.
 - `tools_schema.py`: JSON Schema definitions for the MCP tools.
 - `handlers.py`: Tool call implementations that use the LLM.
+- `server.py`: MCP transport entrypoint exposing the RCA tools over stdio.
 - `mcp_server.py`: Minimal server facade exposing `list_tools` and `call_tool`.
 
 ## Next steps

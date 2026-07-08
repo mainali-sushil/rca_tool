@@ -1,9 +1,8 @@
-import json
 from typing import Any, Dict
 
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
-from mcp.types import TextContent, Tool
+from mcp.types import Tool
 
 from handlers import call_build_incident_timeline, call_generate_5_whys_questions
 from tools_schema import ALL_TOOLS
@@ -18,21 +17,20 @@ async def list_tools() -> list[Tool]:
             name=t["name"],
             description=t["description"],
             inputSchema=t["inputSchema"],
+            outputSchema=t.get("outputSchema"),
         )
         for t in ALL_TOOLS
     ]
 
 
 @server.call_tool()
-async def call_tool(name: str, arguments: Dict[str, Any]) -> list[TextContent]:
+async def call_tool(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
     if name == "build_incident_timeline":
-        result = call_build_incident_timeline(arguments)
+        return call_build_incident_timeline(arguments)
     elif name == "generate_5_whys_questions":
-        result = call_generate_5_whys_questions(arguments)
+        return call_generate_5_whys_questions(arguments)
     else:
         raise ValueError(f"Unknown tool: {name}")
-
-    return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
 async def _run() -> None:

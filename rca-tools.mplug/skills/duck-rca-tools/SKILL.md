@@ -9,7 +9,7 @@ You have access to an **rca-tools** MCP server. These tools structure and normal
 
 ## How it works
 
-The tools return structured event data plus a `_task` field with instructions for you to follow. Read the `_task` and complete it using your own reasoning. The tools handle data wrangling; you handle the writing.
+The tools return structured MCP output plus a `_task` field with instructions for you to follow. Read the `_task` and complete it using your own reasoning. The tools handle data wrangling; you handle the writing.
 
 ## Jira integration — no token needed
 
