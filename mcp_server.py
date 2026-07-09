@@ -7,7 +7,7 @@ from tools_schema import ALL_TOOLS
 class RcaMcpServer:
     """Minimal MCP-like server facade for RCA tools.
 
-    Wire this into your actual MCP transport (stdio/WebSocket/HTTP) according to the
+    Wire this to actual MCP transport (stdio/WebSocket/HTTP) according to the
     Python MCP SDK or your own implementation.
     """
 

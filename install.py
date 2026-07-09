@@ -15,8 +15,6 @@ PLUGIN_NAME = "RCA Tools"
 SERVER_FILES = [
     "server.py",
     "handlers.py",
-    "llm_interface.py",
-    "prompts.py",
     "tools_schema.py",
 ]
 

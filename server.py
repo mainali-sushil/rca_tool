@@ -7,7 +7,7 @@ from mcp.types import Tool
 from handlers import call_build_incident_timeline, call_generate_5_whys_questions
 from tools_schema import ALL_TOOLS
 
-server = Server("rca-tools")
+server = Server("rca-tool")
 
 
 @server.list_tools()

@@ -1,15 +1,15 @@
 ---
-name: duck-rca-tools
-description: RCA Tools MCP — build incident timelines and 5 Whys question chains for postmortems. Use when asked to write an RCA, build a timeline, generate 5 Whys, or analyse an incident. Works with Jira ticket keys — fetch the issue via duck_jira first, then pass it in.
+name: duck-rca-tool
+description: RCA Tool MCP — build incident timelines and 5 Whys question chains for postmortems. Use when asked to write an RCA, build a timeline, generate 5 Whys, or analyse an incident. Works with Jira ticket keys — fetch the issue via duck_jira first, then pass it in.
 ---
 
-# RCA Tools MCP
+# RCA Tool MCP
 
-You have access to an **rca-tools** MCP server. These tools structure and normalise incident data — **you** (Mallard/Claude) do the generation. No external LLM or API key required.
+You have access to an **rca-tool** MCP server. These tool structure and normalise incident data — **you** (Mallard/Claude) do the generation. No external LLM or API key required.
 
 ## How it works
 
-The tools return structured MCP output plus a `_task` field with instructions for you to follow. Read the `_task` and complete it using your own reasoning. The tools handle data wrangling; you handle the writing.
+The tool return structured MCP output plus a `_task` field with instructions for you to follow. Read the `_task` and complete it using your own reasoning. The tool handle data wrangling; you handle the writing.
 
 ## Jira integration — no token needed
 
@@ -23,14 +23,14 @@ Mallard holds the Jira auth — the RCA server just normalises what you hand it.
 ## Workflow
 
 ```
-1. duck_jira → get_issue(key="CESG-XXXXX")            # fetch ticket + linked issues
+1. duck_jira → get_issue(key="SIM-XXXXX")            # fetch ticket + linked issues
 2. build_incident_timeline(incidentId, jiraIssues=[…]) # normalise events
 3. Read _task from response → write timeline + narrative yourself
 4. generate_5_whys_questions(problemStatement, timelineMarkdown)
 5. Read _task from response → write 5 Whys chains yourself
 ```
 
-## Tools
+## Tool
 
 ### `build_incident_timeline`
 
