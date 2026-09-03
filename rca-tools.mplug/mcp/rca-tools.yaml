@@ -1,6 +1,6 @@
 name: rca-tools
 description: |
-  RCA Tools MCP — build incident timelines and generate 5 Whys question chains.
+  RCA Tools MCP — build incident timelines and generate unified 5 Whys tables.
   Use duck_jira to fetch Jira issues and pass them as jiraIssues — no Jira token needed here.
 
 command: "{{env:HOME}}/.rca_mcp/venv/bin/python3"

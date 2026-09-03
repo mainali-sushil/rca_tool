@@ -4,8 +4,8 @@ This package defines two MCP-style tools for streamlining incident RCAs:
 
 - `build_incident_timeline`: Fetches data from SIM, Jira, and observability backends,
   normalizes events, and generates an incident timeline + narrative via an LLM.
-- `generate_5_whys_questions`: Generates 5 Whys starter question chains based on the
-  incident problem statement and timeline.
+- `generate_5_whys_questions`: Prepares structured context and task instructions for
+  a unified 5 Whys table based on the incident problem statement and timeline.
 
 The code is LLM-agnostic. Implement `LLMClient` for your provider (Anthropic, OpenAI,
 local models, etc.), then wire `server.py` into your MCP transport.

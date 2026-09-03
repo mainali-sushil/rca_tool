@@ -1,6 +1,6 @@
 ---
 name: duck-rca-tool
-description: RCA Tool MCP — build incident timelines and 5 Whys question chains for postmortems. Use when asked to write an RCA, build a timeline, generate 5 Whys, or analyse an incident. Works with Jira ticket keys — fetch the issue via duck_jira first, then pass it in.
+description: RCA Tool MCP — build incident timelines and unified 5 Whys tables for postmortems. Use when asked to write an RCA, build a timeline, generate 5 Whys, or analyse an incident. Works with Jira ticket keys — fetch the issue via duck_jira first, then pass it in.
 ---
 
 # RCA Tool MCP
@@ -27,7 +27,7 @@ Mallard holds the Jira auth — the RCA server just normalises what you hand it.
 2. build_incident_timeline(incidentId, jiraIssues=[…]) # normalise events
 3. Read _task from response → write timeline + narrative yourself
 4. generate_5_whys_questions(problemStatement, timelineMarkdown)
-5. Read _task from response → write 5 Whys chains yourself
+5. Read _task from response → write the unified 5 Whys table yourself
 ```
 
 ## Tool
@@ -48,7 +48,7 @@ Returns normalised events and incident metadata. You generate the Markdown timel
 
 ### `generate_5_whys_questions`
 
-Returns structured context. You generate the primary chain, alternative chains, and facilitation tips.
+Returns structured context. You generate a **single unified 5 Whys table** (one row per Why level, synthesising technical and process perspectives) plus a root cause statement and facilitation tips.
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
@@ -56,7 +56,6 @@ Returns structured context. You generate the primary chain, alternative chains, 
 | `timelineMarkdown` | — | Timeline from `build_incident_timeline` |
 | `keyEvents` | — | Key events with role (Trigger, Detection, Mitigation…) |
 | `impact` | — | `{ durationMinutes, usersAffected, severity }` |
-| `maxChains` | — | Max alternative Why chains (default 2) |
 
 ## Generation rules (follow these when writing from `_task`)
 
@@ -67,10 +66,12 @@ Returns structured context. You generate the primary chain, alternative chains, 
 - Focus on technical/process facts, not individuals
 
 **5 Whys:**
-- Start from the problem statement, ask "Why did that happen?" at each level
+- Produce a single Markdown table with 5 rows (Why 1–5), columns: Why | Question | Answer | Root Cause Link
+- Synthesise technical and process angles into one answer per row — do not produce separate chains
 - Never identify a person or "human error" as the root cause — focus on systems, processes, culture
 - Aim for a specific, actionable, changeable root cause
 - Stop when further "Why" leads to uncontrollable causes
+- Follow the table with a one-sentence root cause statement and a short facilitation tips list
 
 ## Prerequisites
 

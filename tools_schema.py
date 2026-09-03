@@ -108,8 +108,8 @@ BUILD_INCIDENT_TIMELINE_TOOL = {
 GENERATE_5_WHYS_TOOL = {
     "name": "generate_5_whys_questions",
     "description": (
-        "Generate 5 Whys starter question chains for an incident RCA, given a "
-        "problem statement and timeline."
+        "Prepare structured context and task instructions for a single unified "
+        "5 Whys Markdown table, given an incident problem statement and timeline."
     ),
     "inputSchema": {
         "type": "object",
@@ -153,60 +153,60 @@ GENERATE_5_WHYS_TOOL = {
                     "severity": {"type": "string"},
                 },
             },
-            "maxChains": {
-                "type": "number",
-                "description": "Max number of alternative chains.",
-                "default": 2,
-            },
         },
         "required": ["problemStatement"],
     },
     "outputSchema": {
         "type": "object",
         "properties": {
-            "primaryChain": {
-                "type": "array",
-                "description": "Primary 5-Whys question chain.",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "level": {"type": "number"},
-                        "question": {"type": "string"},
-                        "hint": {"type": "string"},
-                    },
-                    "required": ["level", "question"],
-                },
+            "problemStatement": {
+                "type": "string",
+                "description": "Single-sentence incident impact statement.",
             },
-            "alternativeChains": {
+            "timelineMarkdown": {
+                "type": "string",
+                "description": "Incident timeline in Markdown.",
+            },
+            "keyEvents": {
                 "type": "array",
-                "description": "Alternative chains for different focuses.",
+                "description": "Key events for anchoring the 5 Whys analysis.",
                 "items": {
                     "type": "object",
                     "properties": {
-                        "focus": {"type": "string"},
-                        "chain": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "level": {"type": "number"},
-                                    "question": {"type": "string"},
-                                    "hint": {"type": "string"},
-                                },
-                                "required": ["level", "question"],
-                            },
+                        "timestamp": {"type": "string", "format": "date-time"},
+                        "summary": {"type": "string"},
+                        "role": {
+                            "type": "string",
+                            "enum": [
+                                "Trigger",
+                                "Detection",
+                                "Mitigation",
+                                "Recovery",
+                                "Contributing",
+                            ],
                         },
                     },
-                    "required": ["focus", "chain"],
+                    "required": ["summary", "role"],
                 },
             },
-            "guidance": {
-                "type": "array",
-                "description": "Facilitation tips for the 5 Whys session.",
-                "items": {"type": "string"},
+            "impact": {
+                "type": "object",
+                "description": "Optional impact metrics.",
+                "properties": {
+                    "durationMinutes": {"type": "number"},
+                    "usersAffected": {"type": "number"},
+                    "severity": {"type": "string"},
+                },
+            },
+            "_task": {
+                "type": "string",
+                "description": (
+                    "Instructions for the agent to generate a single unified "
+                    "5 Whys Markdown table, root cause statement, and facilitation tips."
+                ),
             },
         },
-        "required": ["primaryChain"],
+        "required": ["problemStatement", "_task"],
     },
 }
 

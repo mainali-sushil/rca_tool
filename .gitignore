@@ -1,13 +1,7 @@
 .coverage
 .coverage.*
 .DS_Store
-.idea/.gitignore
-.idea/httpRequests/
-.idea/queries/
-.idea/shelf/
-.idea/workspace.xml
-.idea/dataSources/
-.idea/dataSources.local.xml
+.idea/
 .pytest_cache/
 .ruff_cache/
 .venv/
