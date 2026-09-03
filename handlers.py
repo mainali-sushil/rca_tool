@@ -105,12 +105,17 @@ def call_generate_5_whys_questions(args: Dict[str, Any]) -> Dict[str, Any]:
         "timelineMarkdown": args.get("timelineMarkdown", ""),
         "keyEvents": args.get("keyEvents", []),
         "impact": args.get("impact", {}),
-        "maxChains": args.get("maxChains", 2),
         "_task": (
-            "Using the context above, generate a 5 Whys analysis:\n"
-            "1. One primary chain of 5 successive 'Why?' questions starting from the problem statement.\n"
-            f"2. Up to {args.get('maxChains', 2)} alternative chains (e.g. technical focus, process focus).\n"
-            "3. A short list of facilitation tips for the 5 Whys session.\n"
+            "Using the context above, generate a single unified 5 Whys analysis as a Markdown table.\n"
+            "Consider both technical and process angles when forming each answer, then synthesise them "
+            "into one row per level — do NOT produce separate chains.\n\n"
+            "Table format (5 rows, one per Why level):\n"
+            "| Why | Question | Answer | Root Cause Link |\n"
+            "|-----|----------|--------|-----------------|\n"
+            "| 1   | Why did … happen? | … | → feeds Why 2 |\n"
+            "…\n"
+            "| 5   | Why did … happen? | … | ← Root cause |\n\n"
+            "After the table, add a one-sentence root cause statement and a short list of facilitation tips.\n"
             "Rules: never blame an individual — focus on systems, processes, culture. "
             "Aim for a specific, actionable, changeable root cause. "
             "Stop when further 'Why' leads to uncontrollable causes."
